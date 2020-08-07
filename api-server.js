@@ -4,8 +4,11 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const authConfig = require("./src/auth_config.json");
+const authConfig = require("./src/auth_config.js");
+// Testing Start
+console.log(authConfig);
 
+// Testing End
 const app = express();
 
 const port = process.env.API_PORT || 3001;
@@ -14,7 +17,7 @@ const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
 
 if (!authConfig.domain || !authConfig.audience) {
   throw new Error(
-    "Please make sure that auth_config.json is in place and populated"
+    "Please make sure that auth_config.js is in place and populated"
   );
 }
 
