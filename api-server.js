@@ -11,7 +11,7 @@ console.log(authConfig);
 // Testing End
 const app = express();
 
-const port = process.env.API_PORT || 3001;
+const port = process.env.PORT || 3001;
 const appPort = process.env.SERVER_PORT || 3000;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
 
