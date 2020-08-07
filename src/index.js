@@ -4,9 +4,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
-import config from "./auth_config.js";
+import config from "./auth_config.json";
 import history from "./utils/history";
-
+console.log(config)
 const onRedirectCallback = (appState) => {
   history.push(
     appState && appState.returnTo
@@ -17,7 +17,7 @@ const onRedirectCallback = (appState) => {
 
 ReactDOM.render(
   <Auth0Provider
-    domain={config.domain}
+    domain={config.reactDomain}
     clientId={config.clientId}
     audience={config.audience}
     redirectUri={window.location.origin}
