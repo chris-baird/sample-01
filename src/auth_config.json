@@ -1,5 +1,5 @@
 {
   "domain": "dev-h5rindtx.us.auth0.com",
-  "clientId": "nismYeqJiIM2okOd7x2Gf1Yt4p7dP17r",
-  "audience": "https://myapi"
+  "clientId": "rt4v0lprB7Yvae6OmvrkkXZVZkaWOehR",
+  "audience": "https://cabreactauth0.herokuapp.com/api"
 }
