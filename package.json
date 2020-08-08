@@ -1,6 +1,9 @@
 {
   "name": "auth0-react-sample",
   "version": "0.1.0",
+  "engines": {
+    "node": "12.x"
+  },
   "private": true,
   "scripts": {
     "start": "npm-run-all --parallel spa api-server",
