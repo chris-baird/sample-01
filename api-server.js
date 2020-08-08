@@ -9,6 +9,12 @@ const port = process.env.PORT || 3001;
 const appPort = process.env.SERVER_PORT || 3000;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
 const checkJwt = require('./auth/checkjwt')
+const mongoose = require('mongoose');
+
+// Database connection
+mongoose.connect('mongodb+srv://admin:Goalapppassword3953@cluster0.4tcpj.mongodb.net/Goalapp?retryWrites=true&w=majority', { useNewUrlParser: true });
+
+const db = mongoose.connection;
 
 // Checks for auth config
 if (!authConfig.domain || !authConfig.audience) {
@@ -30,5 +36,13 @@ app.use(checkJwt)
 // Configures routes
 app.use(require('./routes'));
 
-// Sets server to listen on given port
-app.listen(port, () => console.log(`API Server listening on port ${port}`));
+// Database error handler
+db.on('error', console.error.bind(console, 'connection error:'));
+
+// Database connection handler
+db.once('open', function () {
+  // Sets server to listen on given port
+  app.listen(port, () => console.log(`API Server listening on port ${port}`));
+});
+
+
