@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Alert } from "reactstrap";
 import Highlight from "../components/Highlight";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import config from "../auth_config.js";
+import config from "../auth_config.json";
 import Loading from "../components/Loading";
 
 const { apiOrigin = "http://localhost:3001" } = config;
