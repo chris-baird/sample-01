@@ -1,10 +1,7 @@
 const router = require("express").Router();
+const apiController = require("../../controllers/apiController")
 
 router.route("/")
-    .get((req, res) => {
-        res.send({
-            msg: "Your access token was successfully validated!"
-        });
-    })
+    .get(apiController.getMessages)
 
 module.exports = router;
