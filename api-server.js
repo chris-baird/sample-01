@@ -8,11 +8,15 @@ const app = express();
 const port = process.env.PORT || 3001;
 const appPort = process.env.SERVER_PORT || 3000;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
-const checkJwt = require('./auth/checkjwt')
-const mongoose = require('mongoose');
+const checkJwt = require("./auth/checkjwt");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // Database connection
-mongoose.connect('mongodb+srv://admin:Goalapppassword3953@cluster0.4tcpj.mongodb.net/Goalapp?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(
+  "mongodb+srv://admin:Goalapppassword3953@cluster0.4tcpj.mongodb.net/GoalappNew?retryWrites=true&w=majority",
+  { useNewUrlParser: true }
+);
 
 const db = mongoose.connection;
 
@@ -23,6 +27,12 @@ if (!authConfig.domain || !authConfig.audience) {
   );
 }
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
 // HTTP logger middleware
 app.use(morgan("dev"));
 // HTTP header middleware
@@ -31,18 +41,20 @@ app.use(helmet());
 app.use(cors({ origin: appOrigin }));
 // Serves up react app
 app.use(express.static(join(__dirname, "build")));
+
 // Checks every request for a signed JWT
-app.use(checkJwt)
+// Commented out for api development
+// app.use(checkJwt)
+// COMMENT ABOVE BACK IN FOR PRODUCTION
+
 // Configures routes
-app.use(require('./routes'));
+app.use(require("./routes"));
 
 // Database error handler
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on("error", console.error.bind(console, "connection error:"));
 
 // Database connection handler
-db.once('open', function () {
+db.once("open", function () {
   // Sets server to listen on given port
   app.listen(port, () => console.log(`API Server listening on port ${port}`));
 });
-
-
