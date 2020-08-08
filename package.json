@@ -1,6 +1,7 @@
 {
-  "name": "auth0-react-sample",
+  "name": "goal-app",
   "version": "0.1.0",
+  "proxy": "http://localhost:3001",
   "engines": {
     "node": "12.x"
   },
