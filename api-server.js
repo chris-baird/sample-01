@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const authConfig = require("./src/auth_config.json");
+const { join } = require("path");
 
 const app = express();
 
@@ -21,6 +22,7 @@ if (!authConfig.domain || !authConfig.audience) {
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(cors({ origin: appOrigin }));
+app.use(express.static(join(__dirname, "build")));
 
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
