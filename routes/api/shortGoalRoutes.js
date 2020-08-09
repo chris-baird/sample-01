@@ -3,6 +3,10 @@ const shortGoalController = require("../../controllers/shortGoalController");
 
 router.route("/").post(shortGoalController.createShortTermGoal);
 
-router.route("/").get(shortGoalController.getShortTermGoals);
+router.route("/:userId").get(shortGoalController.getShortTermGoals);
+
+router.route("/:id").put(shortGoalController.updateStortTermGoal);
+
+router.route("/:id").delete(shortGoalController.deleteShortTermGoal);
 
 module.exports = router;
