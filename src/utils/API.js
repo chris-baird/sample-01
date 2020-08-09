@@ -9,4 +9,11 @@ export default {
       },
     });
   },
+  createShortTermGoal: (userId, shortTermGoal, token) => {
+    return axios.post(`/api/short-term-goal/${userId}`, shortTermGoal, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

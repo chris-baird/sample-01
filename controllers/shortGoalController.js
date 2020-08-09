@@ -11,12 +11,8 @@ module.exports = {
   // Creates a new short term goal and sends it as json
   createShortTermGoal: (req, res) => {
     // Picking off only the required data from the req body
-    const newShortTermGoal = _.pick(req.body, [
-      "userId",
-      "goal",
-      "description",
-    ]);
-    db.ShortGoal.create(newShortTermGoal)
+    const newShortTermGoal = _.pick(req.body, ["goal", "description"]);
+    db.ShortGoal.create({ ...newShortTermGoal, userId: req.params.userId })
       .then((dbShortGoal) => res.json(dbShortGoal))
       .catch((err) => res.json(err));
   },

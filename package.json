@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
+    "formik": "^2.1.5",
     "helmet": "^3.18.0",
     "highlight.js": "^10.0.3",
     "jwks-rsa": "^1.4.0",
@@ -40,7 +41,8 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.4.0",
-    "reactstrap": "^8.0.0"
+    "reactstrap": "^8.0.0",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.10.1",
