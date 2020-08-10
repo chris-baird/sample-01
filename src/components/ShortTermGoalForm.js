@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import API from "../utils/API";
 import { useAuth0 } from "@auth0/auth0-react";
 import _ from "lodash";
-const ShortTermGoalForm = () => {
+const ShortTermGoalForm = (props) => {
   const {
     user: { sub },
     getAccessTokenSilently,
@@ -27,8 +27,12 @@ const ShortTermGoalForm = () => {
         const newShortTermGoal = _.pick(values, ["goal", "description"]);
         getAccessTokenSilently().then((token) => {
           API.createShortTermGoal(sub, newShortTermGoal, token).then(
-            (shortTermGoal) => {
+            (response) => {
+              console.log(response);
+              const newShortTermGoal = _.pick(response, ["data"]).data;
+              console.log(newShortTermGoal);
               setSubmitting(false);
+              props.handleUpdateShortTermGoals(newShortTermGoal);
             }
           );
         });

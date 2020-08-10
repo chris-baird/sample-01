@@ -26,6 +26,8 @@ export const Goals = () => {
     shortTermGoals: [],
   });
 
+  const [shortTermGoals, setShortTermGoals] = useState([]);
+
   // Auth0 helper functions
   const {
     user: { sub },
@@ -33,19 +35,6 @@ export const Goals = () => {
     loginWithPopup,
     getAccessTokenWithPopup,
   } = useAuth0();
-
-  useEffect(() => {
-    getAccessTokenSilently().then((token) =>
-      API.getAllSortTermGoals(sub, token)
-        .then((response) => {
-          const shortTermGoals = _.pick(response, ["data"]).data;
-          console.log(shortTermGoals);
-          setState({ ...state, shortTermGoals });
-        })
-        .catch((err) => console.log(err))
-    );
-    // console.log(API.getAllSortTermGoals(sub, getAccessTokenSilently()));
-  }, []);
 
   // State and function to update state for short term modal
   const [shortTermModal, setShortTermModal] = useState(false);
@@ -56,6 +45,24 @@ export const Goals = () => {
   const [longTermModal, setLongTermModal] = useState(false);
   // Toggles the short term model
   const toggleLongTermModal = () => setLongTermModal(!longTermModal);
+
+  // Updates the function state with the new short term goal
+  const handleUpdateShortTermGoals = (newShortTermGoal) => {
+    setShortTermGoals([...shortTermGoals, newShortTermGoal]);
+  };
+
+  useEffect(() => {
+    toggleShortTermModal();
+    console.log("EFFECT");
+    getAccessTokenSilently().then((token) =>
+      API.getAllSortTermGoals(sub, token)
+        .then((response) => {
+          const shortTermGoals = _.pick(response, ["data"]).data;
+          setState({ ...state, shortTermGoals });
+        })
+        .catch((err) => console.log(err))
+    );
+  }, [shortTermGoals]);
 
   // Login function for error consent
   const handleConsent = async () => {
@@ -185,7 +192,9 @@ export const Goals = () => {
                 Create A Short Term Goal
               </ModalHeader>
               <ModalBody>
-                <ShortTermGoalForm />
+                <ShortTermGoalForm
+                  handleUpdateShortTermGoals={handleUpdateShortTermGoals}
+                />
               </ModalBody>
               <ModalFooter></ModalFooter>
             </Modal>
